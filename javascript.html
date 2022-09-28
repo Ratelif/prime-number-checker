@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Teszt JavaScript</title>
+   <style>
+      * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+      }
+
+      html {
+         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      }
+
+      .container {
+         width: 70%;
+         margin: 0 auto;
+         text-align: center;
+         padding: 10%;
+         background-color: lightgray;
+         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      }
+
+      .box {
+         margin: 4.5rem;
+      }
+
+      .box h2 {
+         margin-bottom: 1.6rem;
+         font-size: 2rem;
+         font-weight: bold;
+         border-bottom: 2px solid #031b34;
+         width: fit-content;
+         text-shadow: 2px 4px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      .box .display,
+      .box .display-2 {
+         height: .5rem;
+         text-align: center;
+         font-size: 1.3rem;
+         font-weight: bold;
+         margin-top: .5rem;
+      }
+
+      .content_input {
+         display: flex;
+         justify-content: center;
+      }
+
+      .content_input input {
+         flex: 1;
+         font-weight: 400;
+         font-size: 20px;
+         line-height: 28px;
+         background: #031b34;
+         border: 2px solid #031b34;
+         padding: 0 1rem;
+         outline: none;
+         color: #fff;
+         border-top-left-radius: 5px;
+         border-bottom-left-radius: 5px;
+      }
+
+      .content_input button {
+         flex: .3;
+         font-weight: 400;
+         font-size: 20px;
+         line-height: 28px;
+         background: #ff4820;
+         border: 2px solid #ff4820;
+         padding: 0 1rem;
+         color: #fff;
+         cursor: pointer;
+         outline: none;
+         border-top-right-radius: 5px;
+         border-bottom-right-radius: 5px;
+      }
+   </style>
+</head>
+<body>
+   <div class="container">
+      <div class="box">
+         <h2>Prímszám vizsgálat I.</h2>
+         <div class="content_input">
+            <input type="text" placeholder="Prímszám-e a beírt szám?" class="input-field">
+            <button class="button">Küld</button>
+         </div>
+         <div class="display"></div>
+      </div>
+      <div class="box">
+         <h2>Prímszám vizsgálat II.</h2>
+         <div class="content_input">
+            <input type="text" placeholder="Hányadik prímszámot keresed?" class="input-field-2">
+            <button class="button-2">Küld</button>
+         </div>
+         <div class="display-2"></div>
+      </div>
+   </div>
+   <script>
+      const sendButton = document.querySelector('.button')
+      const inputField = document.querySelector('.input-field')
+      const container = document.querySelector('.display')
+      const sendButton2 = document.querySelector('.button-2')
+      const inputField2 = document.querySelector('.input-field-2')
+      const container2 = document.querySelector('.display-2')
+
+      const prim = () => {
+         let number = parseInt(inputField.value)
+         
+         if (number === 0 || number === 1 ) {
+            container.innerHTML = 'Ez nem prímszám!'
+            inputField.value = ''
+            return
+         }
+         if (isNaN(number) || number == '') {
+            alert('Kérem adjon meg egy számot!')
+            inputField.value = ''
+            return
+         } else {
+            for (i = 2; i <= Math.sqrt(number); i++) {
+               if (number % i === 0) {
+                  container.innerHTML = 'Ez nem prímszám!'
+                  inputField.value = ''
+                  return
+               }
+            }
+         }
+         inputField.value = ''
+         container.innerHTML = 'Ez prímszám!'
+      }
+
+      const prim2 = () => {
+         let number = parseInt(inputField2.value)
+         let szamlalo = 0
+         let prim = 0
+         for (x = 2; x <= (number * 15); x++) {
+            for (i = 1; i <= x; i++) {
+               if (x % i === 0) {
+                  szamlalo++
+               }
+            }
+            if (szamlalo == 2) {
+               prim++
+            }
+            szamlalo = 0
+            if (prim == number) {
+               container2.innerText = x
+               return
+            }
+         }
+      }
+      sendButton.addEventListener('click', prim)
+      sendButton2.addEventListener('click', prim2)
+   </script>
+</body>
+
+</html>
